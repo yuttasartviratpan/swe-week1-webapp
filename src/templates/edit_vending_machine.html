@@ -1,0 +1,7 @@
+<h1>{{ vending_machine.name }}</h1>
+<p>Location: {{ vending_machine.location }}</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Save Changes">
+</form>
