@@ -11,6 +11,7 @@ class VendingMachine(models.Model):
 
 
 class Item(models.Model):
+    # Mapping item object to vending machine object. Many-to-one relationship
     vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=5, decimal_places=2)
@@ -18,4 +19,3 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
-
