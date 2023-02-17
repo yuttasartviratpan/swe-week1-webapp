@@ -6,7 +6,7 @@ install packages in there. Then clone this repo to where you did virtualenv
 ## Steps to run
 
 **Prerequisites**:
-
+<!-- Comment space -->
 - Python 3 (I used 3.8)
 - [Virtualenv](https://gist.github.com/Geoyi/d9fab4f609e9f75941946be45000632b)
     - `sudo apt-get install python3-pip`
