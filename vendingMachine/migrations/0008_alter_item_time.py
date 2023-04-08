@@ -5,15 +5,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('vendingMachine', '0007_alter_item_time'),
+        ("vendingMachine", "0007_alter_item_time"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='item',
-            name='time',
-            field=models.DateTimeField(default=datetime.datetime(2023, 2, 7, 18, 44, 23, 884864)),
+            model_name="item",
+            name="time",
+            field=models.DateTimeField(
+                default=datetime.datetime(2023, 2, 7, 18, 44, 23, 884864)
+            ),
         ),
     ]

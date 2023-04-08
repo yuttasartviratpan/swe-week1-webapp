@@ -1,5 +1,7 @@
 # Vending Machine Tracking Application (Assignment)
 
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=yuttasartviratpan_swe-week1-webapp)
+
 Before you clone this repo, please install and make virtualenv and 
 install packages in there. Then clone this repo to where you did virtualenv
 

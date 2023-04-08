@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('vendingMachine', '0013_remove_item_time_time_item_time_stamp'),
+        ("vendingMachine", "0013_remove_item_time_time_item_time_stamp"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='item',
-            name='time_stamp',
+            model_name="item",
+            name="time_stamp",
         ),
         migrations.AddField(
-            model_name='time',
-            name='items',
-            field=models.ManyToManyField(to='vendingMachine.item'),
+            model_name="time",
+            name="items",
+            field=models.ManyToManyField(to="vendingMachine.item"),
         ),
     ]
