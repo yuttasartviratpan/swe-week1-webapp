@@ -11,9 +11,21 @@ class VendingMachineModelsTestCase(TestCase):
         machine_no_1 = VendingMachine.objects.get(name="Machine 1")
         machine_no_2 = VendingMachine.objects.get(name="Machine 2")
 
-        Item.objects.create(vending_machine=machine_no_1, name="Spaghetti", price="19.99", quantity="100")
-        Item.objects.create(vending_machine=machine_no_1, name="Apple", price="9.99", quantity="10")
-        Item.objects.create(vending_machine=machine_no_1, name="Mineral Water", price="2.99", quantity="1000")
+        Item.objects.create(
+            vending_machine=machine_no_1,
+            name="Spaghetti",
+            price="19.99",
+            quantity="100",
+        )
+        Item.objects.create(
+            vending_machine=machine_no_1, name="Apple", price="9.99", quantity="10"
+        )
+        Item.objects.create(
+            vending_machine=machine_no_1,
+            name="Mineral Water",
+            price="2.99",
+            quantity="1000",
+        )
 
         self.assertEqual(str(machine_no_1), "Machine 1")
         self.assertEqual(str(machine_no_2), "Machine 2")
