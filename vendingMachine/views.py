@@ -5,9 +5,6 @@ from django.core import serializers
 from typing import Union
 from django.utils import timezone
 from copy import deepcopy
-import json
-from django.core.serializers.json import DjangoJSONEncoder
-import datetime
 
 
 def item_deep_copy(item):
@@ -27,7 +24,7 @@ def item_deep_copy(item):
 
 
 # Create your views here.
-def home(request: WSGIRequest) -> JsonResponse:
+def home() -> JsonResponse:
     """
     Root url. Return a brief list of vending machine in the database
     """
@@ -36,7 +33,7 @@ def home(request: WSGIRequest) -> JsonResponse:
     return JsonResponse(json_data, safe=False)
 
 
-def vending_machine_list(request: WSGIRequest) -> JsonResponse:
+def vending_machine_list() -> JsonResponse:
     """
     /vending_machine/list/
     Returns a detailed list of vending machine in the database
@@ -83,9 +80,6 @@ def vending_machine_create(
         if name and location:
             vending_machine = VendingMachine.objects.create(
                 name=name, location=location
-            )
-            time_stamp = Time.objects.create(
-                container=vending_machine, key=timezone.now()
             )
 
             return JsonResponse(
@@ -166,10 +160,8 @@ def item_create(
         vending_machine = VendingMachine.objects.get(id=vending_machine_id)
     except VendingMachine.DoesNotExist:
         raise Http404("Vending machine does not exist")
-    # time_stamp = Time.objects.create(container=vending_machine, key=timezone.now())
     time_stamp_item_list = []
     for item in vending_machine.item_set.all():
-        # time_stamp.items.add(item_deep_copy(item))
         time_stamp_item_list.append(
             {
                 "id": item.id,
@@ -178,9 +170,6 @@ def item_create(
                 "quantity": item.quantity,
             }
         )
-    time_stamp = Time.objects.create(
-        container=vending_machine, key=timezone.now(), items=time_stamp_item_list
-    )
     if request.method == "POST":
         name = request.POST.get("name")
         price = request.POST.get("price")
@@ -226,10 +215,8 @@ def item_edit(
         raise Http404("Vending machine does not exist")
     except Item.DoesNotExist:
         raise Http404("Item does not exist")
-    # time_stamp = Time.objects.create(container=vending_machine, key=timezone.now())
     time_stamp_item_list = []
     for time_stamp_item in vending_machine.item_set.all():
-        # time_stamp.items.add(item_deep_copy(item))
         time_stamp_item_list.append(
             {
                 "id": time_stamp_item.id,
@@ -238,9 +225,6 @@ def item_edit(
                 "quantity": time_stamp_item.quantity,
             }
         )
-    time_stamp = Time.objects.create(
-        container=vending_machine, key=timezone.now(), items=time_stamp_item_list
-    )
     if request.method == "POST":
         name = request.POST.get("name")
         price = request.POST.get("price")
@@ -283,10 +267,8 @@ def item_remove(
         raise Http404("Vending machine does not exist")
     except Item.DoesNotExist:
         raise Http404("Item does not exist")
-    # time_stamp = Time.objects.create(container=vending_machine, key=timezone.now())
     time_stamp_item_list = []
     for time_stamp_item in vending_machine.item_set.all():
-        # time_stamp.items.add(item_deep_copy(item))
         time_stamp_item_list.append(
             {
                 "id": time_stamp_item.id,
@@ -295,9 +277,6 @@ def item_remove(
                 "quantity": time_stamp_item.quantity,
             }
         )
-    time_stamp = Time.objects.create(
-        container=vending_machine, key=timezone.now(), items=time_stamp_item_list
-    )
     if request.method == "POST":
         item.delete()
         return JsonResponse({"success": True})
@@ -306,7 +285,7 @@ def item_remove(
 
 
 def check_item_timeline(
-    request: WSGIRequest, vending_machine_id: int, item_id: int
+    vending_machine_id: int, item_id: int
 ) -> Union[JsonResponse, Http404]:
     try:
         vending_machine = VendingMachine.objects.get(id=vending_machine_id)
@@ -334,9 +313,7 @@ def check_item_timeline(
         return JsonResponse(json_return_list, safe=False)
 
 
-def check_stock_timeline(
-    request: WSGIRequest, vending_machine_id: int
-) -> Union[JsonResponse, Http404]:
+def check_stock_timeline(vending_machine_id: int) -> Union[JsonResponse, Http404]:
     try:
         vending_machine = VendingMachine.objects.get(id=vending_machine_id)
     except VendingMachine.DoesNotExist:
